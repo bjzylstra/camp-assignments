@@ -1,4 +1,4 @@
-package hello;
+package campAssignments;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

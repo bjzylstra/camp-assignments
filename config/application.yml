@@ -1,6 +1,6 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/javaAccessTest
+    url: jdbc:postgresql://localhost:5432/tmbcdev
     username: ${DB_ADMIN_USER}
     password: ${DB_ADMIN_PASSWORD}
