@@ -3,7 +3,6 @@
  */
 package campAssignments.databaseObjects;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -18,11 +17,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "camps")
-public class Camp implements Serializable {
+public class CampDao {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 
 	@Id
     @Column(name = "camp_id")
@@ -38,6 +36,14 @@ public class Camp implements Serializable {
     @Column(name = "End")
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime endDate;
+    
+    public long getId() {
+    	return campId;
+    }
+    
+    public void setId(long id) {
+    	this.campId = id;
+    }
     
     public String getDescription() {
         return description;

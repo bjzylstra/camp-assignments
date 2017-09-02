@@ -14,6 +14,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import campAssignmentsApi.Camp;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CampControllerIT {
@@ -22,6 +24,7 @@ public class CampControllerIT {
     private int port;
 
     private URL base;
+    
 
     @Autowired
     private TestRestTemplate template;
@@ -33,8 +36,9 @@ public class CampControllerIT {
 
     @Test
     public void getCamps_All_ReturnsList() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(base.toString(),
-                String.class);
+        ResponseEntity<Camp[]> response = template.getForEntity(base.toString(),
+                Camp[].class);
         assertNotNull("No response", response);
+        assertEquals("Number of camps", 2, response.getBody().length);
     }
 }

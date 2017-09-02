@@ -33,6 +33,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile 'postgresql:postgresql:9.1-901-1.jdbc4'
     compile 'org.yaml:snakeyaml:1.8'
+    compile 'bertz:camp-assignments-api:1.0'
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
     // end::actuator[]

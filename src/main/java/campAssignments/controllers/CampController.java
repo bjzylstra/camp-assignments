@@ -3,27 +3,25 @@
  */
 package campAssignments.controllers;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import campAssignments.databaseObjects.Camp;
+import campAssignments.databaseObjects.CampDao;
 import campAssignments.databaseObjects.CampRepository;
+import campAssignmentsApi.Camp;
 
 /**
  * @author Bert
  * Controller to fetch Camp identification object
  */
-@Controller
+@RestController
 public class CampController {
 
     @Autowired
@@ -32,10 +30,15 @@ public class CampController {
     @RequestMapping(path="/camps", 
     		method = RequestMethod.GET,
     		produces = "application/json")
-    @ResponseBody
-    public String getCamps() throws JsonProcessingException {
-        List<Camp> camp = new ArrayList<Camp>((Collection<? extends Camp>) campRepository.findAll());
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writer().writeValueAsString(camp);
+    public List<Camp> getCamps() {
+    	List<Camp> camps = new ArrayList<Camp>();
+    	for(CampDao campDao : campRepository.findAll()) {
+    		Camp camp = new Camp(campDao.getId(),
+    				campDao.getDescription(),
+    				Date.from(campDao.getStartDate().atZone(ZoneId.systemDefault()).toInstant()),
+    				Date.from(campDao.getEndDate().atZone(ZoneId.systemDefault()).toInstant()));
+    		camps.add(camp);
+    	}
+        return camps;
     }
 }
